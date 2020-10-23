@@ -1,1 +1,1 @@
-# spring-usual
+# a manual of spring
