@@ -1,0 +1,7 @@
+# 本例用于演示如何生成代理类并动态注入SpringIOC容器
+# 本例为两个没有实现类的interface生成了两个代理类并将这两个代理类动态注入到Spring容器中
+# 本例涉及到的知识点有
+# 1.使用ResourceLoaderAware实现包扫描功能
+# 2.使用InvocationHandler动态代理
+# 3.FactoryBean的使用，实际上FactoryBean生成实例化对象都是通过FactoryBean的getObject来操作的
+# 4.使用BeanDefinitionRegistryPostProcessor动态注入bean到Spring容器
