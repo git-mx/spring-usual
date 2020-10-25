@@ -12,10 +12,12 @@
 # 因为就JDK动态代理而言只能代理继承制接口的方法，而接口里是不可能存在private和final方法的
 # 就CGLIB代理而言，在生成被代理类的子类的时候private方法不会被继承到子类里去，final方法也无法被子类覆盖
 # 要让Spring的事务生效，那么必须遵循以下两点
-# 1.@Transaction注解只能作用于pulic方法上
-# 2.即使是被@Transaction的public方法如果这个方法被private方法调用，那么事务也是不会生效的
-# 3.在被@Transaction方法作用的public方法里，如果抛出的异常并不是@Transaction的rollbackFor制定的异常的子类，那么方法内抛出异常事务是不会回滚的
+# 1.@Transactional注解只能作用于pulic方法上
+# 2.即使是被@Transactional的public方法如果这个方法被private方法调用，那么事务也是不会生效的
+# 3.在被@Transactional方法作用的public方法里，如果抛出的异常并不是@Transactional的rollbackFor制定的异常的子类，那么方法内抛出异常事务是不会回滚的
 #   比如@Transaction方法的rollbackFor = NullPointException 而方法里面抛出的是RunTimeException，那么事务时不会回滚的
+# 4.一个没有被@Transactional注解的public方法调用一个本类的被@transactional作用的public方法,这时在后者里抛出异常事务不会生效
+# 5.嵌套的事务方法调用，还要看事务的传播性设置
 # Spring事务几个比较常用的传播特性：
 # PROPAGATION_REQUIRED 默认配置，即如果已经在事务中则加入这个事务，如果没有事务则新建一个事务
 # PROPAGATION_SUPPORTS 如果已经在事务中则加入该事务，如果没有则自己也不开启事务
